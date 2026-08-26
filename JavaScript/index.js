@@ -36,9 +36,22 @@ function updateTime() {
       "h:mm:ss [<small>]A[</small>]",
     );
   }
+  // Kyiv
+  let kyivElement = document.querySelector("#kyiv");
+  if (kyivElement) {
+    let kyivDateElement = kyivElement.querySelector(".date");
+    let kyivTimeElement = kyivElement.querySelector(".time");
+    let kyivTime = moment().tz("Europe/Kyiv");
+
+    kyivDateElement.innerHTML = kyivTime.format("MMMM	Do YYYY");
+    kyivTimeElement.innerHTML = kyivTime.format("h:mm:ss [<small>]A[</small>]");
+  }
 }
 function updateCity(event) {
   let cityTimeZone = event.target.value;
+  if (cityTimeZone === "current") {
+    cityTimeZone = moment.tz.guess();
+  }
 
   let cityName = cityTimeZone.replace("_", " ").split("/")[1];
   let cityTime = moment().tz(cityTimeZone);
