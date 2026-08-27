@@ -1,3 +1,4 @@
+let cityInterval = null;
 function updateTime() {
   // Madrid
   let madridElement = document.querySelector("#madrid");
@@ -49,14 +50,25 @@ function updateTime() {
 }
 function updateCity(event) {
   let cityTimeZone = event.target.value;
+  if (!cityTimeZone) return;
+
   if (cityTimeZone === "current") {
     cityTimeZone = moment.tz.guess();
   }
-
-  let cityName = cityTimeZone.replace("_", " ").split("/")[1];
-  let cityTime = moment().tz(cityTimeZone);
+  let cityName = event.target.options[event.target.selectedIndex].text;
+  if (event.target.value === "current") {
+    cityName = cityTimeZone.replace("_", " ").split("/")[1];
+  }
   let citiesElement = document.querySelector("#cities");
-  citiesElement.innerHTML = `
+
+  if (cityInterval) {
+    clearInterval(cityInterval);
+  }
+
+  function displaySelectedCity() {
+    let cityTime = moment().tz(cityTimeZone);
+
+    citiesElement.innerHTML = `
   <div class="city">
     <div>
       <h2>${cityName}</h2>
@@ -66,10 +78,12 @@ function updateCity(event) {
       "A",
     )}</small></div>
   </div> 
-  <a href="/">All cities</a>
+  <a href="/" style='color: rgb(24, 255, 85); -webkit-text-stroke: 0.1px black; font-size: 18px;'>All cities</a>
   `;
+  }
+  displaySelectedCity();
+  cityInterval = setInterval(displaySelectedCity, 1000);
 }
-
 updateTime();
 setInterval(updateTime, 1000);
 

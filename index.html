@@ -14,8 +14,10 @@
     <div class="content">
       <h1>World Clocks</h1>
 
-      <select id="city">
-        <option value="">Select a city...</option>
+      <select class="option" id="city" required>
+        <option value="" disabled selected class="placeholder-option">
+          Select a city...
+        </option>
         <option value="current">My current location</option>
         <option value="Europe/Lisbon">Lisbon</option>
         <option value="America/New_York">Washington</option>
@@ -58,11 +60,12 @@
       </div>
     </div>
     <footer>
-      This project was coded with ❤️ by <strong>Iryna Krasnodemska</strong> and
-      is
+      This project was coded with ❤️ by
+      <strong class="username">Iryna Krasnodemska</strong> and is
       <a
         href="https://github.com/IrynaKrasnodemska/World-Clock"
         target="_blank"
+        class="link"
       >
         open sourced on GitHub</a
       >
